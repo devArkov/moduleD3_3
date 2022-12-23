@@ -1,0 +1,38 @@
+{% extends 'base.html' %}}
+
+{% block title %}News{% endblock title %}}
+
+{% block content %}
+
+    <h3>Последние Новости:</h3>
+
+    <hr>
+
+    {% if news %}
+        <p><i>(Всего новостей: {{  news | length }})</i></p>
+        <table>
+            <tr>
+                <th>Название</th>
+                <th>Текст</th>
+                <th>Тип</th>
+                <th>Автор</th>
+                <th>Опубликовано</th>
+            </tr>
+
+            {% for item in news %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.text | truncatewords:20 }}</td>
+                <td>{% if item.category_type == 'AR' %}Статья{% else %}Новость{% endif %}</td>
+                <td>{{ item.author.authorUser }}</td>
+                <td>{{ item.created_at| date:'d.M.Y' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Новостей пока нет...</p>
+    {% endif %}
+
+    <hr>
+
+{% endblock content %}

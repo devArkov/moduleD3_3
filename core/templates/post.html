@@ -1,0 +1,17 @@
+{% extends 'base.html' %}}
+
+{% block title %}News{% endblock title %}}
+
+{% block content %}
+
+    <h1>{{ post.title }}</h1>
+    <div class="text">
+        {{ post.text }}
+    </div>
+
+    <p class="author">Автор: {{ post.author.authorUser }}</p>
+    <p class="created_at">{% if item.category_type == 'AR' %}Статья{% else %}Новость{% endif %} опубликована {{ post.created_at | date:'d.m.Y в H:m' }}</p>
+
+
+
+{% endblock content %}
