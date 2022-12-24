@@ -1,38 +1,58 @@
 {% extends 'base.html' %}}
 
+{% load custom_filters %}
+
+
 {% block title %}News{% endblock title %}}
 
 {% block content %}
 
-    <h3>Последние Новости:</h3>
-
-    <hr>
-
-    {% if news %}
-        <p><i>(Всего новостей: {{  news | length }})</i></p>
-        <table>
-            <tr>
-                <th>Название</th>
-                <th>Текст</th>
-                <th>Тип</th>
-                <th>Автор</th>
-                <th>Опубликовано</th>
-            </tr>
-
-            {% for item in news %}
-            <tr>
-                <td>{{ item.title }}</td>
-                <td>{{ item.text | truncatewords:20 }}</td>
-                <td>{% if item.category_type == 'AR' %}Статья{% else %}Новость{% endif %}</td>
-                <td>{{ item.author.authorUser }}</td>
-                <td>{{ item.created_at| date:'d.M.Y' }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        {% if news %}
+        <!-- /.row -->
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Последние Новости</h3>
+                <div class="card-tools">
+                  <p><i>(Всего новостей: {{  news | length }})</i></p>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Заголовок</th>
+                      <th>Тип</th>
+                      <th>Дата</th>
+                      <th>Автор</th>
+                      <th>Текст</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for item in news %}
+                    <tr>
+                      <td>{{ item.id }}</td>
+                      <td><a href="/news/{{ item.id }}">{{ item.title | censor }}</a></td>
+                      <td><span class="tag tag-success">{% if item.category_type == 'AR' %}Статья{% else %}Новость{% endif %}</span></td>
+                      <td>{{ item.created_at| date:'d.M.Y' }}</td>
+                      <td>{{ item.author.authorUser }}</td>
+                      <td>{{ item.text | truncatewords:20 }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
     {% else %}
         <p>Новостей пока нет...</p>
     {% endif %}
-
-    <hr>
 
 {% endblock content %}

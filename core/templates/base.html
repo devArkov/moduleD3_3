@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title> NewsPaper - {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{%  static 'css/main.css' %}">
 </head>
 <body>
 
@@ -13,5 +16,8 @@
 
         {% endblock content %}
     </main>
+
+    <script src="{%  static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{%  static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
